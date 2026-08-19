@@ -64,8 +64,11 @@ with tab2:
         imagen_usuario = Image.open(foto_camara)
 
 # Procesar la imagen si el usuario proporcionó una
+# Procesar la imagen si el usuario proporcionó una
 if imagen_usuario is not None:
-    st.image(imagen_usuario, caption="Imagen cargada", use_column_width=True)
+    # Selecciona el archivo original para mostrar en la interfaz y evitar el TypeError
+    imagen_a_mostrar = archivo_subido if archivo_subido is not None else foto_camara
+    st.image(imagen_a_mostrar, caption="Imagen cargada", use_container_width=True)
     
     with st.spinner("Analizando la imagen con el modelo..."):
         clase, confianza = procesar_y_predecir(imagen_usuario)
